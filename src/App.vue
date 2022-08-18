@@ -1,26 +1,50 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app">
+    <checker-board
+        v-for="house in houses"
+        :key="house"
+        :house-id="house"
+        :entrances="entrances"
+        :flats="flats">
+    </checker-board>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CheckerBoard from "@/components/CheckerBoard";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    CheckerBoard
+  },
+  data() {
+    return {
+      houses: [],
+      entrances: [],
+      flats: [],
+    }
+  },
+  created: function () {
+    let jsonData = require('./data.json');
+    this.houses = jsonData.houses
+    this.entrances = jsonData.entrances
+    this.flats = jsonData.flats
+  },
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+@import "normalize.css";
+
+.app {
+  font-family: 'Roboto', sans-serif;
+  padding: 40px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-end;
+  justify-content: start;
 }
 </style>
